@@ -14,7 +14,7 @@
 		},
 		stack : {},
 		getTime : function() {
-			return new Date * 1;
+			return new Date() * 1;
 		},
 		// 获取URL不带hash的部分,切去掉pjax=true部分
 		getRealUrl : function(url) {
@@ -47,7 +47,7 @@
 		},
 		// 获取cache
 		getCache : function(src, time, flag) {
-			var item, vkey, tkey, tval;
+			var item, vkey, tkey, tval, ctime;
 			time = Util.toInt(time);
 			if (src in Util.stack) {
 				item = Util.stack[src], ctime = Util.getTime();
@@ -130,7 +130,7 @@
 				return true;
 			}
 			// 只是hash不同
-			if (Util.getRealUrl(href) == Util.getRealUrl(location.href)) {
+			if (Util.getRealUrl(href) === Util.getRealUrl(location.href)) {
 				var hash = Util.getUrlHash(href);
 				if (hash) {
 					location.hash = hash;
@@ -206,7 +206,7 @@
 				});
 			}
 		}
-	}
+	};
 	// 展现函数
 	pjax.showFn = function(showType, container, data, fn, isCached) {
 		var fx = null;
@@ -220,7 +220,7 @@
 		}
 		fx && fx.call(container, data, function() {
 			var hash = location.hash;
-			if (hash != '') {
+			if (hash !== '') {
 				location.href = hash;
 				//for FF
 				if(/Firefox/.test(navigator.userAgent)){
@@ -233,7 +233,7 @@
 			}
 			fn && fn.call(this, data, isCached);
 		}, isCached);
-	}
+	};
 	// success callback
 	pjax.success = function(data, isCached) {
 		// isCached default is success
@@ -261,7 +261,7 @@
 		if (pjax.options.modifyData) {
 			data = pjax.options.modifyData(data);
 		}
-		if (pjax.options.allowFullHtml && (data || '').indexOf('<html') != -1) {
+		if (pjax.options.allowFullHtml && (data || '').indexOf('<html') !== -1) {
 			pjax.options.callback && pjax.options.callback.call(pjax.options.element, {
 				type : 'error'
 			});
@@ -279,7 +279,7 @@
 			url : pjax.options.oldUrl
 		};
 		var query = $.param(pjax.options.data);
-		if (query != "") {
+		if (query !== "") {
 			pjax.state.url = pjax.options.url + (/\?/.test(pjax.options.url) ? "&" : "?") + query;
 		}
 		if (pjax.options.push) {
@@ -349,7 +349,7 @@
 	// popstate event
 	var popped = ('state' in window.history), initialURL = location.href;
 	$(window).bind('popstate', function(event) {
-		var initialPop = !popped && location.href == initialURL;
+		var initialPop = !popped && location.href === initialURL;
 		popped = true;
 		if (initialPop) return;
 		var state = event.state;
@@ -389,7 +389,7 @@
 
 	// extra
 	if ($.inArray('state', $.event.props) < 0) {
-		$.event.props.push('state')
+		$.event.props.push('state');
 	}
 
 })(jQuery);
