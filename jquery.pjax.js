@@ -274,7 +274,7 @@
 			timeout : pjax.options.timeout,
 			cache : pjax.options.cache,
 			storage : pjax.options.storage,
-			show : pjax.options.show,
+			// show : pjax.options.show, // avoid error: Uncaught DataCloneError: Failed to execute 'replaceState' on 'History': An object could not be cloned.
 			title : title,
 			url : pjax.options.oldUrl
 		};
