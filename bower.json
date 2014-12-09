@@ -1,0 +1,25 @@
+{
+  "name": "static-pjax",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chuyik/pjax",
+  "authors": [
+    "Edward Chu <crazyzyt@gmail.com>"
+  ],
+  "description": "Why static pages could not use pjax?",
+  "main": "jquery.pjax.js",
+  "keywords": [
+    "pjax",
+    "static-pjax",
+    "github-pages",
+    "gh-pages",
+    "ghpages"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
