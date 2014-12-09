@@ -1,6 +1,6 @@
 /*!
  * pjax(ajax + history.pushState) for jquery
- * 
+ *
  * by welefen
  */
 (function($) {
@@ -154,7 +154,7 @@
 	pjax.xhr = null;
 	pjax.options = {};
 	pjax.state = {};
-	
+
 	// 默认选项
 	pjax.defaultOptions = {
 		timeout : 2000,
@@ -240,17 +240,7 @@
 		if (isCached !== true) {
 			isCached = false;
 		}
-		//accept Whole html
-		if (pjax.html) {
-			data = $(data).find(pjax.html).html();
-		}
-		if ((data || '').indexOf('<html') != -1) {
-			pjax.options.callback && pjax.options.callback.call(pjax.options.element, {
-				type : 'error'
-			});
-			location.href = pjax.options.url;
-			return false;
-		}
+		// set title
 		var title = pjax.options.title || "", el;
 		if (pjax.options.element) {
 			el = $(pjax.options.element);
@@ -261,11 +251,24 @@
 			title = matches[1];
 		}
 		if (title) {
-			if (title.indexOf(pjax.options.titleSuffix) == -1) {
+			if (title.indexOf(pjax.options.titleSuffix) === -1) {
 				title += pjax.options.titleSuffix;
 			}
 		}
 		document.title = title;
+
+		//allow data be modified
+		if (pjax.options.modifyData) {
+			data = pjax.options.modifyData(data);
+		}
+		if (pjax.options.allowFullHtml && (data || '').indexOf('<html') != -1) {
+			pjax.options.callback && pjax.options.callback.call(pjax.options.element, {
+				type : 'error'
+			});
+			location.href = pjax.options.url;
+			return false;
+		}
+
 		pjax.state = {
 			container : pjax.options.container,
 			timeout : pjax.options.timeout,
@@ -300,7 +303,7 @@
 			Util.setCache(pjax.options.url, data, title, pjax.options.storage);
 		}
 	};
-	
+
 	// 发送请求
 	pjax.request = function(options) {
 		options = $.extend(true, pjax.defaultOptions, options);
