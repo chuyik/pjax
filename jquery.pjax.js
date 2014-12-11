@@ -261,7 +261,7 @@
 		if (pjax.options.modifyData) {
 			data = pjax.options.modifyData(data);
 		}
-		if (pjax.options.allowFullHtml && (data || '').indexOf('<html') !== -1) {
+		if (pjax.options.html && (data || '').indexOf('<html') !== -1) {
 			pjax.options.callback && pjax.options.callback.call(pjax.options.element, {
 				type : 'error'
 			});
