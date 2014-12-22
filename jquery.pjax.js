@@ -232,7 +232,7 @@
 				window.scrollTo(0, 0);
 			}
 			fn && fn.call(this, data, isCached);
-		}, isCached);
+		}, isCached, this);
 	};
 	// success callback
 	pjax.success = function(data, isCached) {
