@@ -307,7 +307,7 @@
 	// 发送请求
 	pjax.request = function(options) {
 		options = $.extend(true, pjax.defaultOptions, options);
-		var cache, container = $(options.container);
+		var cache;
 		options.oldUrl = options.url;
 		options.url = Util.getRealUrl(options.url);
 		if($(options.element).length){
@@ -327,7 +327,7 @@
 		// 展现函数
 		if (!options.showFn) {
 			options.showFn = function(data, fn, isCached) {
-				pjax.showFn(options.show, container, data, fn, isCached);
+				pjax.showFn(options.show, $(this.container), data, fn, isCached);
 			};
 		}
 		pjax.options = options;
