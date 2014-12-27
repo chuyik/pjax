@@ -274,6 +274,7 @@
 			timeout : pjax.options.timeout,
 			cache : pjax.options.cache,
 			storage : pjax.options.storage,
+			modifyData: pjax.options.modifyData.toString(),
 			// show : pjax.options.show, // avoid error: Uncaught DataCloneError: Failed to execute 'replaceState' on 'History': An object could not be cloned.
 			title : title,
 			url : pjax.options.oldUrl
@@ -355,11 +356,17 @@
 		var state = event.state;
 		if (state && state.container) {
 			if ($(state.container).length) {
+				// take care of function
+				var modifyData;
+				if(state.modifyData && /function/.test(state.modifyData)){
+					modifyData = eval('(' + state.modifyData + ')');
+				}
 				var data = {
 					url : state.url,
 					container : state.container,
 					push : null,
 					timeout : state.timeout,
+					modifyData: modifyData,
 					cache : state.cache,
 					storage : state.storage,
 					title: state.title,
